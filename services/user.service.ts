@@ -19,3 +19,13 @@ export const getTodos = async () => {
   const res = await api.get("/todos");
   return res.data;
 };
+
+export const getUserPosts = async (id: string) => {
+  const res = await api.get(`/posts?userId=${id}`);
+  return res.data;
+};
+
+export const getUserTodos = async (id: string) => {
+  const res = await api.get(`/todos?userId=${id}`);
+  return res.data;
+};
