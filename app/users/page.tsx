@@ -7,6 +7,7 @@ import UserStats from "@/components/users/CardStats";
 import UserFilters from "@/components/users/UserFilters";
 import UserTable from "@/components/users/UserTable";
 import UserCards from "@/components/users/UserMobileCards";
+import DashboardLayout from "@/components/layout/DashboardLayout";
 
 function calculateUserStats(
   user: User,
@@ -70,8 +71,9 @@ export default function UsersPage() {
   const pendingCount = todos.data?.filter((t: Todo) => !t.completed).length || 0;
 
   return (
-    <main className="space-y-6 p-6">
-      <h1 className="text-3xl font-bold">User Operations</h1>
+    <DashboardLayout>
+      <main className="space-y-6 p-6">
+        <h1 className="text-3xl font-bold">User Operations</h1>
 
       <UserStats
         totalUsers={merged.length}
@@ -90,6 +92,7 @@ export default function UsersPage() {
       <UserTable users={filtered} />
       <UserCards users={filtered} />
     </main>
+    </DashboardLayout>
   );
 }
 
