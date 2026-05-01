@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { type Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -27,12 +28,12 @@ export default function UserDetailPage({ params }: { params: { id: string } }) {
           </div>
         </div>
 
-        <a
+        <Link
           href="/users"
           className="mt-8 inline-flex rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-700"
         >
           Kembali ke Daftar Pengguna
-        </a>
+        </Link>
       </section>
     </main>
   );
