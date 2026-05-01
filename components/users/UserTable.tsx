@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 interface UserRow {
-  id: string;
+  id: number;
   name: string;
   email: string;
   website: string;
