@@ -3,7 +3,6 @@ export default function UsersPage() {
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Users</h1>
       <p className="text-gray-600 mb-4">Manage your users here.</p>
-
       <div className="bg-white shadow rounded-lg p-6">
         <h2 className="text-xl font-semibold mb-4">User List</h2>
         <div className="space-y-4">
