@@ -42,7 +42,10 @@ export default function UserTable({ users }: UserTableProps) {
               <td>{user.completed}</td>
               <td>{user.pending}</td>
               <td>
-                <Link href={`/users/${user.id}`} className="text-blue-500 hover:underline">
+                <Link
+                  href={`/users/${user.id}`}
+                  className="text-blue-500 hover:underline"
+                >
                   View
                 </Link>
               </td>

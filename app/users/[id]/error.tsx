@@ -1,27 +1,16 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-
-export default function UsersError() {
-  const router = useRouter();
-
-  useEffect(() => {
-    // Redirect to the users page after a short delay
-    const timer = setTimeout(() => {
-      router.push("/users");
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, [router]);
-
+export default function Error({ reset }: { reset: () => void }) {
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="mb-4 text-2xl font-bold">An error occurred</h1>
-      <p className="mb-4 text-gray-600">
-        Sorry, something went wrong while fetching the users. You will be
-        redirected back to the users page shortly.
-      </p>
+    <div className="space-y-4 p-10 text-center">
+      <h2 className="text-2xl font-bold">Failed to load user</h2>
+
+      <button
+        onClick={() => reset()}
+        className="rounded-lg bg-blue-600 px-4 py-2 text-white cursor-pointer hover:bg-blue-700"
+      >
+        Retry
+      </button>
     </div>
   );
 }
