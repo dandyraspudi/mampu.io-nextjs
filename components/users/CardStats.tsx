@@ -5,6 +5,7 @@ interface UserStatsProps {
   totalPosts: number;
   completed: number;
   pending: number;
+  doubleRow?: boolean;
 }
 
 export default function CardStats({
@@ -12,6 +13,7 @@ export default function CardStats({
   totalPosts,
   completed,
   pending,
+  doubleRow = false
 }: UserStatsProps) {
   const cards = [
     {
@@ -45,7 +47,7 @@ export default function CardStats({
   ];
 
   return (
-    <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+    <div className={`grid grid-cols-1 ${doubleRow ? 'md:grid-cols-2' : 'md:grid-cols-4'} gap-3`}>
       {cards.map((item) => {
         const Icon = item.icon;
         return (
