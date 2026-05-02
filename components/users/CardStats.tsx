@@ -51,9 +51,9 @@ export default function CardStats({
         return (
           <div
             key={item.title}
-            className="rounded-xl border bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900 flex items-start gap-4"
+            className="rounded-xl border bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900 md:flex md:items-start md:gap-5"
           >
-            <div className={`p-2 rounded-xl ${item.color}`}>
+            <div className={`inline-flex w-fit shrink-0 items-center justify-center p-2 rounded-xl ${item.color}`}>
               <Icon size={20} />
             </div>
             <div>
