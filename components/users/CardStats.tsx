@@ -23,10 +23,14 @@ export default function CardStats({
       {cards.map((item) => (
         <div
           key={item.title}
-          className="rounded-xl border bg-white p-5 shadow-sm"
+          className="rounded-xl border bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900"
         >
-          <p className="text-sm text-gray-500">{item.title}</p>
-          <h2 className="text-2xl font-bold">{item.value}</h2>
+          <p className="text-sm text-gray-500 dark:text-slate-400">
+            {item.title}
+          </p>
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-50">
+            {item.value}
+          </h2>
         </div>
       ))}
     </div>
