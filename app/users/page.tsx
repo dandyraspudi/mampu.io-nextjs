@@ -8,6 +8,7 @@ import UserFilters from "@/components/users/UserFilters";
 import UserTable from "@/components/users/UserTable";
 import UserCards from "@/components/users/UserMobileCards";
 import DashboardLayout from "@/components/layout/DashboardLayout";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
 
 function calculateUserStats(
   user: User,
@@ -36,6 +37,7 @@ function matchesSearch(user: User, search: string): boolean {
 function matchesFilter(user: UserWithStats, filter: string): boolean {
   if (filter === "all") return true;
   if (filter === "pending") return user.pending > 0;
+  if (filter === "active0") return user.totalPosts === 0;
   return user.completed === 0;
 }
 
@@ -64,7 +66,7 @@ export default function UsersPage() {
     });
   }, [merged, search, filter]);
 
-  if (loading) return <div className="p-10">Loading...</div>;
+  if (loading) return <div className="h-screen flex items-center justify-center"><LoadingSpinner textLoading="Loading users, posts, and todos..." /></div>;
 
   const completedCount =
     todos.data?.filter((t: Todo) => t.completed).length || 0;
