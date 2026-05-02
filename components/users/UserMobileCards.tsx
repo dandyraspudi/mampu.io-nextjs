@@ -1,6 +1,7 @@
 import { getAvatarColor } from "@/utils/avatarColor";
 import Link from "next/link";
 import NotFound from "../ui/NotFound";
+import { ChevronRight } from "lucide-react";
 
 interface UserMobileCardProps {
   users: {
@@ -46,6 +47,7 @@ export default function UserMobileCards({ users }: UserMobileCardProps) {
                   {user.email}
                 </p>
               </div>
+              <ChevronRight className="ml-auto text-gray-400" />
             </div>
 
             <div className="mt-3 grid grid-cols-3 text-sm">
