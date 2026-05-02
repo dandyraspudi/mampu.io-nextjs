@@ -16,9 +16,9 @@ interface UserTableProps {
 
 export default function UserTable({ users }: UserTableProps) {
   return (
-    <div className="hidden overflow-hidden rounded-xl border bg-white md:block">
+    <div className="hidden overflow-hidden rounded-xl border border-slate-200 bg-white text-slate-900 shadow-sm md:block dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100">
       <table className="w-full">
-        <thead className="bg-slate-100">
+        <thead className="bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300">
           <tr>
             <th className="p-4 text-left">Name</th>
             <th>Email</th>
@@ -32,9 +32,17 @@ export default function UserTable({ users }: UserTableProps) {
 
         <tbody>
           {users.map((user) => (
-            <tr key={user.id} className="border-t hover:bg-slate-50">
+            <tr
+              key={user.id}
+              className="border-t border-slate-200 hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-800"
+            >
               <td className="p-4">
-                <Link href={`/users/${user.id}`}>{user.name}</Link>
+                <Link
+                  href={`/users/${user.id}`}
+                  className="text-slate-900 dark:text-slate-100"
+                >
+                  {user.name}
+                </Link>
               </td>
               <td>{user.email}</td>
               <td>{user.website}</td>
@@ -44,7 +52,7 @@ export default function UserTable({ users }: UserTableProps) {
               <td>
                 <Link
                   href={`/users/${user.id}`}
-                  className="text-blue-500 hover:underline"
+                  className="text-blue-500 hover:underline dark:text-blue-300"
                 >
                   View
                 </Link>

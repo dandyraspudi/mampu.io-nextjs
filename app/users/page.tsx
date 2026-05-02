@@ -68,31 +68,38 @@ export default function UsersPage() {
 
   const completedCount =
     todos.data?.filter((t: Todo) => t.completed).length || 0;
-  const pendingCount = todos.data?.filter((t: Todo) => !t.completed).length || 0;
+  const pendingCount =
+    todos.data?.filter((t: Todo) => !t.completed).length || 0;
 
   return (
     <DashboardLayout>
       <main className="space-y-6 p-6">
-        <h1 className="text-3xl font-bold">User Operations</h1>
+        <div>
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-50">
+            User Operations
+          </h1>
+          <p className="text-slate-600 dark:text-slate-300">
+            Manage and view user information, posts, and todos.
+          </p>
+        </div>
+        
+        <UserStats
+          totalUsers={merged.length}
+          totalPosts={posts.data?.length || 0}
+          completed={completedCount}
+          pending={pendingCount}
+        />
 
-      <UserStats
-        totalUsers={merged.length}
-        totalPosts={posts.data?.length || 0}
-        completed={completedCount}
-        pending={pendingCount}
-      />
+        <UserFilters
+          search={search}
+          setSearch={setSearch}
+          filter={filter}
+          setFilter={setFilter}
+        />
 
-      <UserFilters
-        search={search}
-        setSearch={setSearch}
-        filter={filter}
-        setFilter={setFilter}
-      />
-
-      <UserTable users={filtered} />
-      <UserCards users={filtered} />
-    </main>
+        <UserTable users={filtered} />
+        <UserCards users={filtered} />
+      </main>
     </DashboardLayout>
   );
 }
-
