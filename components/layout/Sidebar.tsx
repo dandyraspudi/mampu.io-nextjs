@@ -52,7 +52,7 @@ export default function Sidebar() {
         })}
       </nav>
 
-      <div className="p-2 mb-5 mx-3 rounded-xl bg-blue-50 text-start text-sm text-gray-500 dark:border-slate-700 dark:text-slate-400 font-semibold">
+      <div className="p-2 mb-5 mx-3 rounded-xl bg-blue-50 dark:border text-start text-sm text-gray-500 dark:border-slate-700 dark:text-slate-400 dark:bg-slate-900 font-semibold">
         <b>About this app</b>
 
         <p className="my-4">
