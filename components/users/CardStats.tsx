@@ -5,6 +5,7 @@ interface UserStatsProps {
   totalPosts: number;
   completed: number;
   pending: number;
+  doubleRow?: boolean;
 }
 
 export default function CardStats({
@@ -12,6 +13,7 @@ export default function CardStats({
   totalPosts,
   completed,
   pending,
+  doubleRow = false
 }: UserStatsProps) {
   const cards = [
     {
@@ -45,15 +47,15 @@ export default function CardStats({
   ];
 
   return (
-    <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+    <div className={`grid grid-cols-1 ${doubleRow ? 'md:grid-cols-2' : 'md:grid-cols-4'} gap-3`}>
       {cards.map((item) => {
         const Icon = item.icon;
         return (
           <div
             key={item.title}
-            className="rounded-xl border bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900 flex items-start gap-4"
+            className="rounded-xl border bg-white p-3 md:p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900 md:flex md:items-start md:gap-5"
           >
-            <div className={`p-2 rounded-xl ${item.color}`}>
+            <div className={`inline-flex w-fit shrink-0 items-center justify-center p-2 rounded-xl ${item.color}`}>
               <Icon size={20} />
             </div>
             <div>

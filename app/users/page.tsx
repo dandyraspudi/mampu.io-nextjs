@@ -3,10 +3,10 @@
 import { useMemo, useState } from "react";
 import { useUsersData } from "@/hooks/useUsers";
 import { User, Post, Todo, UserWithStats } from "@/types/user";
-import UserStats from "@/components/users/CardStats";
+import CardStats from "@/components/users/CardStats";
 import UserFilters from "@/components/users/UserFilters";
 import UserTable from "@/components/users/UserTable";
-import UserCards from "@/components/users/UserMobileCards";
+import UserMobileCards from "@/components/users/UserMobileCards";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 
@@ -85,7 +85,7 @@ export default function UsersPage() {
           </p>
         </div>
         
-        <UserStats
+        <CardStats
           totalUsers={merged.length}
           totalPosts={posts.data?.length || 0}
           completed={completedCount}
@@ -100,7 +100,7 @@ export default function UsersPage() {
         />
 
         <UserTable users={filtered} />
-        <UserCards users={filtered} />
+        <UserMobileCards users={filtered} />
       </main>
     </DashboardLayout>
   );

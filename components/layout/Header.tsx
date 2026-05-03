@@ -5,10 +5,12 @@ import ThemeToggle from "./ThemeToggles";
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-20 flex h-16 items-center justify-end border-b bg-white px-6 dark:border-slate-700 dark:bg-slate-900">
+    <header className="sticky top-0 z-20 flex h-16 items-center justify-between border-b bg-white px-6 dark:border-slate-700 dark:bg-slate-900">
+      <div>
+        <MobileDrawer />
+      </div>
 
       <div className="flex items-center gap-4">
-        <MobileDrawer />
         <ThemeToggle />
 
         <div className="flex items-center gap-2">
