@@ -10,7 +10,7 @@ export default function Sidebar() {
   const menus = [
     {
       name: "Dashboard",
-      href: "/users",
+      href: "/dashboard",
       icon: LayoutDashboard,
     },
     {
