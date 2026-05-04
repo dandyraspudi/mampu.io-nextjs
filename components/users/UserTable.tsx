@@ -1,21 +1,7 @@
 import Link from "next/link";
 import { getAvatarColor } from "@/utils/avatarColor";
 import NotFound from "../ui/NotFound";
-
-interface UserRow {
-  id: number;
-  name: string;
-  username: string;
-  email: string;
-  website: string;
-  totalPosts: number;
-  completed: number;
-  pending: number;
-}
-
-interface UserTableProps {
-  users: UserRow[];
-}
+import { UserTableProps } from "@/types/user";
 
 export default function UserTable({ users }: UserTableProps) {
   return (

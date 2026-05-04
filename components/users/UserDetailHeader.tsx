@@ -1,9 +1,6 @@
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
-
-interface UserDetailHeaderProps {
-  userName: string;
-}
+import { UserDetailHeaderProps } from "@/types/user";
 
 export default function UserDetailHeader({ userName }: UserDetailHeaderProps) {
   return (

@@ -1,8 +1,5 @@
-import type { ReactNode } from "react";
-import * as Icons from "lucide-react";
-import type { LucideIcon } from "lucide-react";
-
-const iconMap = Icons as unknown as Record<string, LucideIcon>;
+import { getIcon } from "@/utils/userPage";
+import { CardProps } from "@/types/user";
 
 const colorStyles: Record<string, string> = {
   blue: "bg-blue-50 text-blue-600 dark:bg-blue-950 dark:text-blue-300",
@@ -12,22 +9,6 @@ const colorStyles: Record<string, string> = {
   purple:
     "bg-purple-50 text-purple-600 dark:bg-purple-950 dark:text-purple-300",
 };
-
-function getIcon(iconName: string): LucideIcon {
-  return iconMap[iconName] ?? Icons.HelpCircle;
-}
-
-interface CardProps {
-  cards: {
-    title: string;
-    subtitle: string;
-    description: ReactNode;
-    icon: string;
-    color: string;
-    isList: boolean;
-    list: Array<{ label: string; icon: string }>;
-  }[];
-}
 
 export default function Card({ cards }: CardProps) {
   return (

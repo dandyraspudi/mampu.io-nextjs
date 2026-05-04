@@ -2,12 +2,8 @@
 
 import { useState } from "react";
 import { CircleCheckBig, Clock } from "lucide-react";
-import type { Todo } from "@/types/user";
 import UsersModal from "./UsersModal";
-
-interface UserTodosPreviewProps {
-  todos: Todo[];
-}
+import { UserTodosPreviewProps } from "@/types/user";
 
 export default function UserTodosPreview({ todos }: UserTodosPreviewProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);

@@ -9,37 +9,7 @@ import UserTable from "@/components/users/UserTable";
 import UserMobileCards from "@/components/users/UserMobileCards";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
-
-function calculateUserStats(
-  user: User,
-  posts: Post[],
-  todos: Todo[],
-): UserWithStats {
-  const userPosts = posts.filter((p) => p.userId === user.id);
-  const userTodos = todos.filter((t) => t.userId === user.id);
-
-  return {
-    ...user,
-    totalPosts: userPosts.length,
-    completed: userTodos.filter((t) => t.completed).length,
-    pending: userTodos.filter((t) => !t.completed).length,
-  };
-}
-
-function matchesSearch(user: User, search: string): boolean {
-  const lowerSearch = search.toLowerCase();
-  return (
-    user.name.toLowerCase().includes(lowerSearch) ||
-    user.email.toLowerCase().includes(lowerSearch)
-  );
-}
-
-function matchesFilter(user: UserWithStats, filter: string): boolean {
-  if (filter === "all") return true;
-  if (filter === "pending") return user.pending > 0;
-  if (filter === "active0") return user.totalPosts === 0;
-  return user.completed === 0;
-}
+import { calculateUserStats, matchesSearch, matchesFilter } from "@/utils/userPage";
 
 export default function UsersPage() {
   const { users, posts, todos } = useUsersData();

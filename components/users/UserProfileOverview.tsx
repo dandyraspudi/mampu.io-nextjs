@@ -1,13 +1,7 @@
 import { Globe, Mail, Phone } from "lucide-react";
 import CardStats from "@/components/users/CardStats";
-import type { Post, Todo, User } from "@/types/user";
 import { getAvatarColor } from "@/utils/avatarColor";
-
-interface UserProfileOverviewProps {
-  user: User;
-  posts: Post[];
-  todos: Todo[];
-}
+import { UserProfileOverviewProps } from "@/types/user";
 
 export default function UserProfileOverview({
   user,

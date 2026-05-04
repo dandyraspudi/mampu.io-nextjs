@@ -1,12 +1,5 @@
 import { Users, FileText, Check, Clock4 } from "lucide-react";
-
-interface UserStatsProps {
-  totalUsers: number;
-  totalPosts: number;
-  completed: number;
-  pending: number;
-  doubleRow?: boolean;
-}
+import { UserStatsProps } from "@/types/user";
 
 export default function CardStats({
   totalUsers,

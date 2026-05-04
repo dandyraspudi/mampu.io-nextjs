@@ -3,24 +3,12 @@
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import { useUsersData } from "@/hooks/useUsers";
 import StatsPieChart from "@/components/ui/PieChart";
-import { Todo, User, Post } from "@/types/user";
+import { Todo } from "@/types/user";
 
 export default function DashboardPage() {
   const { users, posts, todos } = useUsersData();
 
   const todosChart = () => {
-    const data = todos.data || [];
-
-    const completed = data.filter((t: Todo) => t.completed).length;
-    const pending = data.filter((t: Todo) => !t.completed).length;
-
-    return [
-      { name: "Completed", value: completed },
-      { name: "Pending", value: pending },
-    ];
-  };
-
-  const tasksChart = () => {
     const data = todos.data || [];
 
     const completed = data.filter((t: Todo) => t.completed).length;

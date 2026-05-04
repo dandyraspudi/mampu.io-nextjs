@@ -1,9 +1,5 @@
 import Card from "@/components/users/Card";
-import type { User } from "@/types/user";
-
-interface UserDetailCardsProps {
-  user: User;
-}
+import { UserDetailCardsProps } from "@/types/user";
 
 export default function UserDetailCards({ user }: UserDetailCardsProps) {
   const cardDetails = [

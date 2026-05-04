@@ -3,26 +3,9 @@
 import { useMemo, useState } from "react";
 import { X, Search, ChevronLeft, ChevronRight } from "lucide-react";
 import NotFound from "../ui/NotFound";
-import type { Post, Todo } from "@/types/user";
 import { useDebounce } from "@/hooks/useDebounce";
 import LoadingSpinner from "../ui/LoadingSpinner";
-
-interface UsersModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  posts?: Post[];
-  todos?: Todo[];
-  title: string;
-  subtitle: string;
-  isPosts?: boolean;
-}
-
-interface ModalItem {
-  id: number;
-  title: string;
-  subtitle: string;
-  status?: "Completed" | "Pending";
-}
+import { UsersModalProps, ModalItem } from "@/types/user";
 
 export default function UsersModal({
   isOpen,

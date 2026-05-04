@@ -1,13 +1,9 @@
 "use client";
 
 import { FileText } from "lucide-react";
-import type { Post } from "@/types/user";
 import UsersModal from "./UsersModal";
 import { useState } from "react";
-
-interface UserRecentPostsProps {
-  posts: Post[];
-}
+import { UserRecentPostsProps } from "@/types/user";
 
 export default function UserRecentPosts({ posts }: UserRecentPostsProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);

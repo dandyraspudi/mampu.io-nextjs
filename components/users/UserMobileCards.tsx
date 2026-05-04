@@ -2,18 +2,7 @@ import { getAvatarColor } from "@/utils/avatarColor";
 import Link from "next/link";
 import NotFound from "../ui/NotFound";
 import { ChevronRight } from "lucide-react";
-
-interface UserMobileCardProps {
-  users: {
-    id: number;
-    name: string;
-    username: string;
-    email: string;
-    totalPosts: number;
-    completed: number;
-    pending: number;
-  }[];
-}
+import { UserMobileCardProps } from "@/types/user";
 
 export default function UserMobileCards({ users }: UserMobileCardProps) {
   return (
