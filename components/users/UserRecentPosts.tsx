@@ -45,13 +45,23 @@ export default function UserRecentPosts({ posts }: UserRecentPostsProps) {
           ))}
         </div>
 
-        <div className="mt-5 cursor-pointer rounded-md border border-blue-500 p-2 text-center font-semibold text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-950" onClick={openModal}>
+        <div
+          className="mt-5 cursor-pointer rounded-md border border-blue-500 p-2 text-center font-semibold text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-950"
+          onClick={openModal}
+        >
           <p>View all posts</p>
         </div>
       </section>
 
       {/* modal */}
-      <UsersModal title="All users posts" subtitle="View all posts from registered users" isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} posts={posts} isPosts={true} />
+      <UsersModal
+        title="All users posts"
+        subtitle="View all posts from registered users"
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        posts={posts}
+        isPosts={true}
+      />
     </div>
   );
 }
