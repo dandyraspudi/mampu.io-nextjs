@@ -3,48 +3,76 @@
 import { useMemo, useState } from "react";
 import { X, Search, ChevronLeft, ChevronRight } from "lucide-react";
 import NotFound from "../ui/NotFound";
-
-interface Post {
-  id: number;
-  title: string;
-  body: string;
-}
+import type { Post, Todo } from "@/types/user";
+import { useDebounce } from "@/hooks/useDebounce";
+import LoadingSpinner from "../ui/LoadingSpinner";
 
 interface UsersModalProps {
   isOpen: boolean;
   onClose: () => void;
-  posts: Post[];
+  posts?: Post[];
+  todos?: Todo[];
   title: string;
   subtitle: string;
-  isPosts: boolean;
+  isPosts?: boolean;
+}
+
+interface ModalItem {
+  id: number;
+  title: string;
+  subtitle: string;
+  status?: "Completed" | "Pending";
 }
 
 export default function UsersModal({
   isOpen,
   onClose,
   posts,
+  todos,
   title,
   subtitle,
-  isPosts,
+  isPosts = false,
 }: UsersModalProps) {
   const [search, setSearch] = useState<string>("");
+  const debouncedSearch = useDebounce(search, 500);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [perPage] = useState<number>(5);
+  const isSearching = search !== debouncedSearch;
 
-  const filteredPosts = useMemo(() => {
-    return (posts || []).filter(
-      (post) =>
-        post.title.toLowerCase().includes(search.toLowerCase()) ||
-        post.body.toLowerCase().includes(search.toLowerCase()),
+  const items = useMemo<ModalItem[]>(() => {
+    if (isPosts) {
+      return (posts || []).map((post) => ({
+        id: post.id,
+        title: post.title,
+        subtitle: post.body,
+      }));
+    }
+
+    return (todos || []).map((todo) => ({
+      id: todo.id,
+      title: todo.title,
+      subtitle: todo.completed ? "Task completed" : "Task pending",
+      status: todo.completed ? "Completed" : "Pending",
+    }));
+  }, [isPosts, posts, todos]);
+
+  const filteredItems = useMemo(() => {
+    const keyword = debouncedSearch.toLowerCase();
+
+    return items.filter(
+      (item) =>
+        item.title.toLowerCase().includes(keyword) ||
+        item.subtitle.toLowerCase().includes(keyword) ||
+        item.status?.toLowerCase().includes(keyword),
     );
-  }, [posts, search]);
+  }, [items, debouncedSearch]);
 
-  const totalPages = Math.ceil(filteredPosts.length / perPage);
+  const totalPages = Math.ceil(filteredItems.length / perPage);
 
-  const paginatedPosts = useMemo(() => {
+  const paginatedItems = useMemo(() => {
     const start = (currentPage - 1) * perPage;
-    return filteredPosts.slice(start, start + perPage);
-  }, [filteredPosts, currentPage, perPage]);
+    return filteredItems.slice(start, start + perPage);
+  }, [filteredItems, currentPage, perPage]);
 
   if (!isOpen) return null;
 
@@ -53,9 +81,10 @@ export default function UsersModal({
   };
 
   const startItem =
-    filteredPosts.length === 0 ? 0 : (currentPage - 1) * perPage + 1;
+    filteredItems.length === 0 ? 0 : (currentPage - 1) * perPage + 1;
 
-  const endItem = Math.min(currentPage * perPage, filteredPosts.length);
+  const endItem = Math.min(currentPage * perPage, filteredItems.length);
+  const itemLabel = isPosts ? "posts" : "todos";
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 px-4 backdrop-blur-sm">
@@ -89,7 +118,7 @@ export default function UsersModal({
 
             <input
               type="text"
-              placeholder="Search by name or email..."
+              placeholder={`Search ${itemLabel}...`}
               value={search}
               onChange={(e) => {
                 setSearch(e.target.value);
@@ -108,23 +137,32 @@ export default function UsersModal({
                 <th className="py-4">No</th>
                 <th>Title</th>
                 <th>Subtitle</th>
+                {!isPosts && <th>Status</th>}
               </tr>
             </thead>
 
             <tbody>
-              {paginatedPosts.length === 0 ? (
+              {
+                isSearching ? (
+                  <tr>
+                    <td colSpan={7} className="py-10">
+                      <LoadingSpinner textLoading={`Searching ${itemLabel}...`} />
+                    </td>
+                  </tr>
+                ) : !isSearching &&
+              paginatedItems.length === 0 ? (
                 <tr>
                   <td colSpan={7} className="py-10">
                     <NotFound
-                      TextNotFound="No posts found."
-                      subtitle="We couldn`t find any posts matching your criteria."
+                      TextNotFound={`No ${itemLabel} found.`}
+                      subtitle={`We couldn\`t find any ${itemLabel} matching your criteria.`}
                     />
                   </td>
                 </tr>
               ) : (
-                paginatedPosts.map((post, idx) => (
+                paginatedItems.map((item, idx) => (
                   <tr
-                    key={post.id}
+                    key={item.id}
                     className="border-b border-slate-100 hover:bg-slate-50 dark:border-slate-800 dark:hover:bg-slate-800/40"
                   >
                     <td className="py-4 font-medium text-slate-900 dark:text-white">
@@ -133,19 +171,33 @@ export default function UsersModal({
 
                     <td className="py-4">
                       <p className="font-medium text-slate-900 dark:text-white">
-                        {post.title.length > 20
-                          ? post.title.substring(0, 20) + "..."
-                          : post.title}
+                        {item.title.length > 40
+                          ? item.title.substring(0, 40) + "..."
+                          : item.title}
                       </p>
                     </td>
 
                     <td>
-                      <p className="text-xs text-slate-500">
-                        {post.body.length > 30
-                          ? post.body.substring(0, 80) + "..."
-                          : post.body}
+                      <p className="text-xs text-slate-500 dark:text-slate-400">
+                        {item.subtitle.length > 80
+                          ? item.subtitle.substring(0, 80) + "..."
+                          : item.subtitle}
                       </p>
                     </td>
+
+                    {!isPosts && (
+                      <td>
+                        <span
+                          className={`rounded-full px-3 py-1 text-xs font-semibold ${
+                            item.status === "Completed"
+                              ? "bg-green-50 text-green-600 dark:bg-green-950 dark:text-green-300"
+                              : "bg-orange-50 text-orange-600 dark:bg-orange-950 dark:text-orange-300"
+                          }`}
+                        >
+                          {item.status}
+                        </span>
+                      </td>
+                    )}
                   </tr>
                 ))
               )}
@@ -156,7 +208,7 @@ export default function UsersModal({
         {/* Pagination Footer */}
         <div className="flex flex-col gap-4 border-t border-slate-200 px-6 py-5 dark:border-slate-700 md:flex-row md:items-center md:justify-between">
           <p className="text-sm text-slate-500">
-            Showing {startItem} to {endItem} of {filteredPosts.length} data
+            Showing {startItem} to {endItem} of {filteredItems.length} data
           </p>
 
           <div className="flex items-center gap-2">
